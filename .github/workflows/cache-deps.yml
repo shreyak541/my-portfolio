@@ -1,7 +1,7 @@
 name: CI with Dependency Caching
 
 on:
-  workflow_dispatch:    # allows manual triggering
+  workflow_dispatch:   # allows manual run
   push:
     branches:
       - main
@@ -11,34 +11,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
+      # 1️⃣ Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Setup Python
+      # 2️⃣ Setup Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
 
-      # Step 3: Cache dependencies
+      # 3️⃣ Cache dependencies
       - name: prime-cache-6b26132
-        id: cache-step
+        id: cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
           key: cache-6b26132
           restore-keys: cache-6b26132
 
-      # Step 4: Echo cache hit/miss
+      # 4️⃣ Show cache hit/miss
       - name: Show cache result
-        run: echo "Cache hit: ${{ steps.cache-step.outputs.cache-hit }}"
+        run: echo "Cache hit? ${{ steps.cache.outputs.cache-hit }}"
 
-      # Step 5: Install dependencies (pip)
+      # 5️⃣ Install Python dependencies
       - name: Install dependencies
         run: |
           pip install requests
 
-      # Step 6: Step with your email
+      # 6️⃣ Step with your email
       - name: 24f3004473@ds.study.iitm.ac.in
         run: echo "Hello, GitHub Actions!"
